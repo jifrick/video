@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+*.crswap
+# Ignore files larger than 100MB
+videcl.mp4
