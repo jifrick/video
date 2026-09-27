@@ -64,17 +64,59 @@ video::-webkit-media-controls {
   display: none !important;
 }
 
-/* Controls Overlay */
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+/* Live badge — bottom right */
+.live-badge {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.92);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  font-family: var(--font-display);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+
+.live-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  line-height: 1;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+/* Controls Overlay (unused in live mode) */
 .controls-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-end;
-  pointer-events: none; /* Let clicks pass through when hidden */
+  pointer-events: none;
   transition: opacity var(--transition-normal), transform var(--transition-normal);
   opacity: 1;
   transform: translateY(0);

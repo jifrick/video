@@ -3,91 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroPlayer - Premium Fullscreen Video Player</title>
-  <!-- Google Fonts -->
+  <title>AeroPlayer - Live Stream</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="video-container" id="videoContainer">
-    <!-- The Video Element -->
-    <video id="mainVideo" src="videcl (1).mp4" playsinline preload="auto" autoplay muted></video>
+    <video
+      id="mainVideo"
+      src="videcl (1).mp4"
+      playsinline
+      preload="auto"
+      autoplay
+      muted
+      loop
+    ></video>
 
-
-
-    <!-- Buffering/Loading Spinner -->
     <div class="loading-overlay" id="loadingOverlay">
       <div class="spinner"></div>
-      <span class="loading-text">Loading video...</span>
+      <span class="loading-text">Loading stream...</span>
     </div>
 
-    <!-- Drag and Drop Overlay -->
-    <div class="drop-overlay" id="dropOverlay">
-      <div class="drop-card">
-        <div class="drop-icon-pulse">
-          <i data-lucide="upload-cloud"></i>
-        </div>
-        <h3>Drop Video to Stream</h3>
-        <p>Supports MP4, WebM, OGG, and local media formats</p>
-      </div>
-    </div>
-
-
-
-    <!-- Controls Overlay Container -->
-    <div class="controls-overlay" id="controlsOverlay">
-      <div class="gradient-bottom"></div>
-
-      <div class="controls-content">
-
-
-        <!-- Buttons Toolbar -->
-        <div class="controls-toolbar">
-          <div class="toolbar-left">
-
-
-            <!-- Volume Container -->
-            <div class="volume-container">
-              <button class="icon-btn tooltip" data-tooltip="Mute (M)" id="muteBtn">
-                <i data-lucide="volume-2" id="volumeIcon"></i>
-              </button>
-              <div class="volume-slider-wrapper">
-                <div class="volume-slider" id="volumeSlider">
-                  <div class="volume-slider-bg"></div>
-                  <div class="volume-slider-current" id="volumeSliderCurrent">
-                    <div class="volume-knob"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-          <div class="toolbar-right">
-
-
-
-
-
-
-            <!-- Fullscreen -->
-            <button class="icon-btn tooltip" data-tooltip="Fullscreen (F)" id="fullscreenBtn">
-              <i data-lucide="expand" class="btn-icon-expand"></i>
-              <i data-lucide="shrink" class="btn-icon-shrink hidden"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="live-badge" aria-label="Live">
+      <span class="live-dot"></span>
+      <span class="live-text">LIVE</span>
     </div>
   </div>
 
-  <!-- Lucide Icons CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/umd/lucide.min.js"></script>
-  <!-- Logic -->
   <script type="module" src="/main.js"></script>
 </body>
 </html>
