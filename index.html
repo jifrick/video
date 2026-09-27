@@ -19,17 +19,119 @@
       autoplay
       muted
       loop
-    ></video>
+    >
+      <track
+        id="captionTrack"
+        kind="captions"
+        srclang="en"
+        label="English"
+        src="captions.vtt"
+        default
+      >
+    </video>
 
     <div class="loading-overlay" id="loadingOverlay">
       <div class="spinner"></div>
       <span class="loading-text">Loading stream...</span>
     </div>
 
+    <div class="caption-display" id="captionDisplay" hidden></div>
+
     <div class="live-badge" aria-label="Live">
       <span class="live-dot"></span>
       <span class="live-text">LIVE</span>
     </div>
+
+    <button class="fullscreen-fab" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen" title="Fullscreen">
+      <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+      </svg>
+      <svg class="icon-shrink hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3v3a2 2 0 0 1-2 2H3M16 3v3a2 2 0 0 0 2 2h3M8 21v-3a2 2 0 0 0-2-2H3M16 21v-3a2 2 0 0 1 2-2h3"/>
+      </svg>
+    </button>
+
+    <button class="panel-tab" id="panelTab" type="button" aria-label="Open settings" aria-expanded="false" aria-controls="sidePanel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+
+    <aside class="side-panel" id="sidePanel" aria-hidden="true">
+      <div class="side-panel-header">
+        <div>
+          <p class="side-panel-eyebrow">Stream</p>
+          <h2>Controls</h2>
+        </div>
+        <button class="panel-close" id="panelClose" type="button" aria-label="Close panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="side-panel-body">
+        <section class="control-block">
+          <div class="control-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            <span>Sound</span>
+          </div>
+          <div class="sound-row">
+            <button class="mute-chip" id="muteBtn" type="button" aria-label="Toggle mute">
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <svg class="icon-muted hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </button>
+            <input class="volume-range" id="volumeRange" type="range" min="0" max="100" value="0" aria-label="Volume">
+            <span class="volume-value" id="volumeValue">0%</span>
+          </div>
+        </section>
+
+        <section class="control-block">
+          <div class="control-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <span>Microphone</span>
+          </div>
+          <label class="field-label" for="micSelect">Input device</label>
+          <select class="device-select" id="micSelect" aria-label="Select microphone">
+            <option value="">Request access to list mics…</option>
+          </select>
+          <p class="field-hint" id="micHint">Permission needed to show real mic names.</p>
+        </section>
+
+        <section class="control-block">
+          <div class="control-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/><circle cx="12" cy="18" r="1"/></svg>
+            <span>Speaker</span>
+          </div>
+          <label class="field-label" for="speakerSelect">Output device</label>
+          <select class="device-select" id="speakerSelect" aria-label="Select speaker">
+            <option value="">Default system speaker</option>
+          </select>
+          <p class="field-hint" id="speakerHint">Uses your system’s real audio outputs when supported.</p>
+        </section>
+
+        <section class="control-block">
+          <div class="control-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h14"/></svg>
+            <span>Captions</span>
+          </div>
+          <div class="caption-toggle-row">
+            <div>
+              <p class="toggle-label">Closed captions</p>
+              <p class="field-hint">Show on-screen captions for this stream.</p>
+            </div>
+            <button class="toggle-switch" id="captionToggle" type="button" role="switch" aria-checked="false" aria-label="Toggle captions">
+              <span class="toggle-thumb"></span>
+            </button>
+          </div>
+        </section>
+
+        <button class="refresh-devices" id="refreshDevices" type="button">Refresh devices</button>
+      </div>
+    </aside>
+
+    <div class="panel-backdrop" id="panelBackdrop" hidden></div>
   </div>
 
   <script type="module" src="/main.js"></script>
